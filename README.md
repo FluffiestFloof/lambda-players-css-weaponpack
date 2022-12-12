@@ -1,6 +1,6 @@
 # Lambda Players - Counter-Strike: Source Weapon Pack
-Adds Counter-Strike: Source weapons for the [Lambda Players](https://github.com/IcyStarFrost/Lambda-Players/).<br>
-Except the grenades.
+Adds Counter-Strike: Source weapons, except the grenades, for the [Lambda Players](https://github.com/IcyStarFrost/Lambda-Players/).<br>
+The damage and spread values were inspired by the Zeta CSS weapons.
 
 ### Weapons implemented
 Currently implements the following weapons;
