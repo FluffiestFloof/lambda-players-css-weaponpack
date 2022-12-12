@@ -53,6 +53,7 @@ table.Merge( _LAMBDAPLAYERSWEAPONS, {
                     wepent:EmitSound( "Weapon_FAMAS.Single", 70, 100, 1, CHAN_WEAPON )
                     self:HandleMuzzleFlash( 1 )
                     self:HandleShellEject( "RifleShellEject", Vector( 10, 0, 0 ), Angle( 180, 0, 0 ) )
+                    bullettbl.Src = wepent:GetPos()
                     wepent:FireBullets( bullettbl )
                 end)
                 
@@ -60,6 +61,7 @@ table.Merge( _LAMBDAPLAYERSWEAPONS, {
                     wepent:EmitSound( "Weapon_FAMAS.Single", 70, 100, 1, CHAN_WEAPON )
                     self:HandleMuzzleFlash( 1 )
                     self:HandleShellEject( "RifleShellEject", Vector( 10, 0, 0 ), Angle( 180, 0, 0 ) )
+                    bullettbl.Src = wepent:GetPos()
                     wepent:FireBullets( bullettbl )
                 end)
 
