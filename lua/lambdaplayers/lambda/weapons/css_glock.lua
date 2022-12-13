@@ -1,6 +1,27 @@
 local random = math.random
 local CurTime = CurTime
-local bullettbl = {}
+local bullettbl = {
+    Damage = 6,
+    Force = 6,
+    HullSize = 5,
+    Num = 1,
+    TracerName = "Tracer",
+    Spread = Vector( 0.16, 0.16, 0 )
+}
+
+local function ShootGun( lambda, wepent, target )
+    bullettbl.Attacker = lambda
+    bullettbl.Dir = ( target:WorldSpaceCenter() - wepent:GetPos() ):GetNormalized()
+    bullettbl.Src = wepent:GetPos()
+    bullettbl.IgnoreEntity = lambda
+
+    wepent:EmitSound( "Weapon_Glock.Single", 70, 100, 1, CHAN_WEAPON )
+    lambda:HandleMuzzleFlash( 1 )
+    lambda:HandleShellEject( "ShellEject" )
+    wepent:FireBullets( bullettbl )
+    
+    lambda.l_Clip = lambda.l_Clip - 1
+end
 
 table.Merge( _LAMBDAPLAYERSWEAPONS, {
 
@@ -36,53 +57,27 @@ table.Merge( _LAMBDAPLAYERSWEAPONS, {
 
         callback = function( self, wepent, target )
             if self.l_Clip <= 0 then self:ReloadWeapon() return end
+
+            ShootGun( self, wepent, target )
             
-            bullettbl.Attacker = self
-            bullettbl.Damage = 6
-            bullettbl.Force = 6
-            bullettbl.HullSize = 5
-            bullettbl.Num = 1
-            bullettbl.TracerName = "Tracer"
-            bullettbl.Dir = ( target:WorldSpaceCenter() - wepent:GetPos() ):GetNormalized()
-            bullettbl.Src = wepent:GetPos()
-            bullettbl.Spread = Vector( 0.16, 0.16, 0 )
-            bullettbl.IgnoreEntity = self
-            
-            if wepent.burst and self.l_Clip >= 3 then
+            if wepent.burst then
                 self.l_WeaponUseCooldown = CurTime() + 0.5
 
                 self:SimpleTimer(0.05, function()
-                    wepent:EmitSound( "Weapon_Glock.Single", 70, 100, 1, CHAN_WEAPON )
-                    self:HandleMuzzleFlash( 1 )
-                    self:HandleShellEject( "ShellEject" )
-                    bullettbl.Src = wepent:GetPos()
-                    wepent:FireBullets( bullettbl )
+                    ShootGun( self, wepent, target )
                 end)
-
-                self:SimpleTimer(0.1, function()
-                    wepent:EmitSound( "Weapon_Glock.Single", 70, 100, 1, CHAN_WEAPON )
-                    self:HandleMuzzleFlash( 1 )
-                    self:HandleShellEject( "ShellEject" )
-                    bullettbl.Src = wepent:GetPos()
-                    wepent:FireBullets( bullettbl )
-                end)
-
-                self.l_Clip = self.l_Clip - 3
+                
+                if self.l_Clip >= 1 then -- Just to prevent shooting a third bullet when on last two.
+                    self:SimpleTimer(0.1, function()
+                        ShootGun( self, wepent, target )
+                    end)
+                end
             else
                 self.l_WeaponUseCooldown = CurTime() + 0.15
-
-                self.l_Clip = self.l_Clip - 1
             end
-
-            wepent:EmitSound( "Weapon_Glock.Single", 70, 100, 1, CHAN_WEAPON )
 
             self:RemoveGesture( ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL )
             self:AddGesture( ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL )
-            
-            self:HandleMuzzleFlash( 1 )
-            self:HandleShellEject( "ShellEject" )
-
-            wepent:FireBullets( bullettbl )
 
             return true
         end,
