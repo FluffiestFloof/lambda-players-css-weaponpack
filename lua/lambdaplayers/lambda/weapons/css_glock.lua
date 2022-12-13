@@ -67,11 +67,11 @@ table.Merge( _LAMBDAPLAYERSWEAPONS, {
                     ShootGun( self, wepent, target )
                 end)
                 
-                if self.l_Clip >= 1 then -- Just to prevent shooting a third bullet when on last two.
                     self:SimpleTimer(0.1, function()
-                        ShootGun( self, wepent, target )
+                        if self.l_Clip >= 1 then -- Just to prevent shooting a third bullet when on last two.
+                            ShootGun( self, wepent, target )
+                        end
                     end)
-                end
             else
                 self.l_WeaponUseCooldown = CurTime() + 0.15
             end
