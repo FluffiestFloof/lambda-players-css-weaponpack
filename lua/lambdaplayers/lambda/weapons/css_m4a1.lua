@@ -1,6 +1,6 @@
 local random = math.random
 local CurTime = CurTime
-local bullettbl = {}
+local bulletInfo = {}
 
 table.Merge( _LAMBDAPLAYERSWEAPONS, {
 
@@ -59,20 +59,20 @@ table.Merge( _LAMBDAPLAYERSWEAPONS, {
             
             self:HandleShellEject( "RifleShellEject" )
 
-            bullettbl.Attacker = self
-            bullettbl.Damage = 8
-            bullettbl.Force = 8
-            bullettbl.HullSize = 5
-            bullettbl.Num = 1
-            bullettbl.TracerName = "Tracer"
-            bullettbl.Dir = ( target:WorldSpaceCenter() - wepent:GetPos() ):GetNormalized()
-            bullettbl.Src = wepent:GetPos()
-            bullettbl.Spread = Vector( 0.15, 0.15, 0 )
-            bullettbl.IgnoreEntity = self
+            bulletInfo.Attacker = self
+            bulletInfo.Damage = 8
+            bulletInfo.Force = 8
+            bulletInfo.HullSize = 5
+            bulletInfo.Num = 1
+            bulletInfo.TracerName = "Tracer"
+            bulletInfo.Dir = ( target:WorldSpaceCenter() - wepent:GetPos() ):GetNormalized()
+            bulletInfo.Src = wepent:GetPos()
+            bulletInfo.Spread = Vector( 0.15, 0.15, 0 )
+            bulletInfo.IgnoreEntity = self
 
             self.l_Clip = self.l_Clip - 1
 
-            wepent:FireBullets( bullettbl )
+            wepent:FireBullets( bulletInfo )
 
             return true
         end,

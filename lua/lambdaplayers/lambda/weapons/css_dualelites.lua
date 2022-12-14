@@ -2,7 +2,7 @@ local CurTime = CurTime
 local random = math.random
 local vector_origin = vector_origin
 local Effect = util.Effect
-local bullettbl = {}
+local bulletInfo = {}
 
 table.Merge( _LAMBDAPLAYERSWEAPONS, {
 
@@ -64,20 +64,20 @@ table.Merge( _LAMBDAPLAYERSWEAPONS, {
                 Effect( "MuzzleEffect", muzzleFlash, true )
             end
 
-            bullettbl.Attacker = self
-            bullettbl.Damage = 7
-            bullettbl.Force = 7
-            bullettbl.HullSize = 5
-            bullettbl.Num = 1
-            bullettbl.TracerName = "Tracer"
-            bullettbl.Dir = ( target:WorldSpaceCenter() - wepent:GetPos() ):GetNormalized()
-            bullettbl.Src = wepent:GetPos()
-            bullettbl.Spread = Vector( 0.26, 0.26, 0 )
-            bullettbl.IgnoreEntity = self
+            bulletInfo.Attacker = self
+            bulletInfo.Damage = 7
+            bulletInfo.Force = 7
+            bulletInfo.HullSize = 5
+            bulletInfo.Num = 1
+            bulletInfo.TracerName = "Tracer"
+            bulletInfo.Dir = ( target:WorldSpaceCenter() - wepent:GetPos() ):GetNormalized()
+            bulletInfo.Src = wepent:GetPos()
+            bulletInfo.Spread = Vector( 0.26, 0.26, 0 )
+            bulletInfo.IgnoreEntity = self
 
             self.l_Clip = self.l_Clip - 1
 
-            wepent:FireBullets( bullettbl )
+            wepent:FireBullets( bulletInfo )
 
             return true
         end,
