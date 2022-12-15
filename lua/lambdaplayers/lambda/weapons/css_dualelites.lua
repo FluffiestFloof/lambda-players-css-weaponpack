@@ -1,7 +1,5 @@
 local CurTime = CurTime
-local random = math.random
-local vector_origin = vector_origin
-local Effect = util.Effect
+local util_Effect = util.Effect
 local bulletInfo = {}
 
 table.Merge( _LAMBDAPLAYERSWEAPONS, {
@@ -52,7 +50,7 @@ table.Merge( _LAMBDAPLAYERSWEAPONS, {
                 shellEject:SetOrigin( wepent.shellAttach.Pos )
                 shellEject:SetAngles( wepent.shellAttach.Ang )
                 shellEject:SetEntity( wepent )
-                Effect("ShellEject", shellEject, tue)
+                util_Effect("ShellEject", shellEject, tue)
             end
             if wepent.muzzleAttach then
                 local muzzleFlash = EffectData()
@@ -61,7 +59,7 @@ table.Merge( _LAMBDAPLAYERSWEAPONS, {
                 muzzleFlash:SetAngles( wepent.muzzleAttach.Ang )
                 muzzleFlash:SetScale(0.5)
                 muzzleFlash:SetEntity( wepent )
-                Effect( "MuzzleEffect", muzzleFlash, true )
+                util_Effect( "MuzzleEffect", muzzleFlash, true )
             end
 
             bulletInfo.Attacker = self
