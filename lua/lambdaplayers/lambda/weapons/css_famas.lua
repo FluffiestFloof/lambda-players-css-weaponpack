@@ -9,7 +9,7 @@ local bulletInfo = {
     Spread = Vector( 0.11, 0.11, 0 )
 }
 
-local function ShootGun( lambda, wepent, target )
+local function ShootGun( lambda, wepent )
     bulletInfo.Attacker = lambda
     bulletInfo.Src = wepent:GetPos()
     bulletInfo.IgnoreEntity = lambda
@@ -52,22 +52,22 @@ table.Merge( _LAMBDAPLAYERSWEAPONS, {
             end
         end,
 
-        callback = function( self, wepent, target )
+        callback = function( self, wepent)
             if self.l_Clip <= 0 then self:ReloadWeapon() return end
 
             bulletInfo.Dir = ( target:WorldSpaceCenter() - wepent:GetPos() ):GetNormalized()
 
-            ShootGun( self, wepent, target )
+            ShootGun( self, wepent )
             
             if wepent.burst then
                 self.l_WeaponUseCooldown = CurTime() + 0.5
 
                 self:SimpleTimer(0.075, function()
-                    ShootGun( self, wepent, target )
+                    ShootGun( self, wepent)
                 end)
                 
                 self:SimpleTimer(0.15, function()
-                    ShootGun( self, wepent, target )
+                    ShootGun( self, wepent )
                 end)
             else
                 self.l_WeaponUseCooldown = CurTime() + 0.09
