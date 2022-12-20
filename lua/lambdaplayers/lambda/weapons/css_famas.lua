@@ -52,7 +52,7 @@ table.Merge( _LAMBDAPLAYERSWEAPONS, {
             end
         end,
 
-        callback = function( self, wepent)
+        callback = function( self, wepent, target )
             if self.l_Clip <= 0 then self:ReloadWeapon() return end
 
             bulletInfo.Dir = ( target:WorldSpaceCenter() - wepent:GetPos() ):GetNormalized()
